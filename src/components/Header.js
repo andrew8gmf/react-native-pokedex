@@ -1,5 +1,8 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Dimensions, View, Text } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faBars, faFilter, faStar as fasFaStar, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faStar as farFaStar } from '@fortawesome/free-regular-svg-icons';
 
 const winHeight = Dimensions.get('window').height;
 
