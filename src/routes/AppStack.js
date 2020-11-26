@@ -5,13 +5,18 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const { Navigator, Screen } = createStackNavigator();
 
+import Header from '../components/Header';
 import App from '../pages/App';
 
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Navigator>
-        <Screen 
+      <Navigator
+        screenOptions={{
+          headerTitle: () => <Header />,
+        }}
+      >
+        <Screen
           name="App" 
           component={App} 
         />
