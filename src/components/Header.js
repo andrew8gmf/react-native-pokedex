@@ -10,18 +10,18 @@ const winHeight = Dimensions.get('window').height;
 export default function Header() {
     return (
         <SafeAreaView>
-            <StatusBar backgroundColor="black"/>
+            <StatusBar backgroundColor="black" />
             <View style={styles.header}>
                 <View style={styles.headerBar}>
                     <View style={styles.searchBar}>
-                        <FontAwesomeIcon icon={ faBars } color='white' />
+                        <FontAwesomeIcon icon={faBars} color='white' />
                         <TextInput style={styles.search} placeholder='Search' placeholderTextColor='white'></TextInput>
                     </View>
                     <View style={styles.icons}>
-                        <FontAwesomeIcon icon={ faFilter } color='white' />
-                        <FontAwesomeIcon icon={ fasFaStar } color='white' />
-                        <FontAwesomeIcon icon={ faEllipsisV } color='white' />
-                    </View>            
+                        <FontAwesomeIcon icon={faFilter} color='white' />
+                        <FontAwesomeIcon icon={fasFaStar} color='white' />
+                        <FontAwesomeIcon icon={faEllipsisV} color='white' />
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     header: {
         width: winWidth,
         height: winHeight * 0.1,
-        position: 'absolute',
+        //position: 'absolute',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -66,5 +66,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-    }, 
+    },
 })

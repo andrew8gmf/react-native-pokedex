@@ -7,7 +7,6 @@ const winHeight = Dimensions.get('window').height;
 export default function PokemonList({ pokemon }) {
   return (
     <View style={styles.container}>
-      <View style={{ width: winWidth, height: winHeight * 0.1 }}/>
       {pokemon.map(p => (
         <Text key={p}>{p}</Text>
       ))}
