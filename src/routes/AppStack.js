@@ -13,7 +13,7 @@ const Routes = () => {
     <NavigationContainer>
       <Navigator
         screenOptions={{
-          headerTitle: () => <Header />,
+          header: () => <Header />,
         }}
       >
         <Screen

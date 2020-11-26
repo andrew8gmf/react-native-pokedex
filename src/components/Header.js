@@ -1,24 +1,29 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Dimensions, View, Text } from 'react-native';
+
+const winHeight = Dimensions.get('window').height;
 
 export default function Header() {
     return (
-        <View style={styles.header}>
-            <View>
-                <Text style={styles.headerText}>Pokédex</Text>
+        <SafeAreaView>
+            <StatusBar backgroundColor="black"/>
+            <View style={styles.header}>
+                <View>
+                    <Text style={styles.headerText}>Pokédex</Text>
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        height: '100%',
+        height: winHeight * 0.1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: 'red',
     },
     headerText: {
         fontWeight: 'bold',
