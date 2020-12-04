@@ -1,52 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native';
 import axios from 'axios';
 import PokemonList from '../components/PokemonList';
-import Pagination from '../components/Pagination';
 
 export default function App() {
-  const [pokemon, setPokemon] = useState([]);
-  const [currentPageUrl, setCurrentPageUrl] = useState("https://pokeapi.co/api/v2/pokemon");
-  const [nextPageUrl, setNextPageUrl] = useState();
-  const [prevPageUrl, setPrevPageUrl] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    let cancel;
-    axios.get(currentPageUrl, {
-      cancelToken: new axios.CancelToken(c => cancel = c)
-    }).then(res => {
-      setLoading(false);
-      setNextPageUrl(res.data.next);
-      setPrevPageUrl(res.data.previous);
-      setPokemon(res.data.results);
+    getData();
+  },[]);
+  
+  async function getData() {
+    await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20&offset=' + offset).then(res => {
+      setPokemons(pokemons.concat(res.data.results));
     });
-
-    return () => cancel();
-  }, [currentPageUrl]);
-
-  function gotoNextPage() {
-    setCurrentPageUrl(nextPageUrl);
   }
 
-  function gotoPrevPage() {
-    setCurrentPageUrl(prevPageUrl);
+  function handleLoadMore() {
+    setLoading(true);
+    setOffset(offset + 20);
+    getData();
   }
 
-  if (loading) {
-    return (
-      <Text>Loading...</Text>
-    )
-  } else {
-    return (
-      <>
-        <PokemonList pokemon={pokemon} />
-        <Pagination
-          gotoNextPage={nextPageUrl ? gotoNextPage : null}
-          gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <PokemonList 
+        pokemons={pokemons}
+        handleLoadMore={handleLoadMore}
+        loading={loading}
+      />
+    </>
+  );
+
 }

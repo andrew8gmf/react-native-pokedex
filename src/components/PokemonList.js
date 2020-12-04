@@ -1,13 +1,12 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { StyleSheet, Dimensions, View, FlatList, Image, Text } from 'react-native';
+import { StyleSheet, Dimensions, View, FlatList, Image, Text, ActivityIndicator } from 'react-native';
 
 const winWidth = Dimensions.get('window').width;
 const winHeight = Dimensions.get('window').height;
 
-export default function PokemonList({ pokemon }) {
+export default function PokemonList({ pokemons, handleLoadMore, loading }) {
 
-  renderRow = ({ item }) => {
+  const renderRow = ({ item }) => {
     const imageUrl = 'https://pokeres.bastionbot.org/images/pokemon/';
     const pokemonUrl = item.url;
     const pokemonId = pokemonUrl.split('https://pokeapi.co/api/v2/pokemon/');
@@ -23,15 +22,26 @@ export default function PokemonList({ pokemon }) {
         <Text style={styles.text}>{item.name}</Text>
       </View>
     );
-  }
+  };
+
+  const renderFooter = () => {
+    return (
+      loading ? (
+        <ActivityIndicator color="white" />
+      ) : null
+    );
+  };
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={pokemon}
+        data={pokemons}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         renderItem={renderRow}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );
@@ -40,7 +50,7 @@ export default function PokemonList({ pokemon }) {
 const styles = StyleSheet.create({
   container: {
     width: winWidth,
-    height: winHeight * 0.7,
+    height: winHeight * 0.85,
   },
   item: {
     flex: 1,
