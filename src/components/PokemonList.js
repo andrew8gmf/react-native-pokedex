@@ -7,17 +7,16 @@ const winHeight = Dimensions.get('window').height;
 export default function PokemonList({ pokemons, handleLoadMore, loading }) {
 
   const renderRow = ({ item }) => {
-    const imageUrl = 'https://pokeres.bastionbot.org/images/pokemon/';
-    const pokemonUrl = item.url;
-    const pokemonId = pokemonUrl.split('https://pokeapi.co/api/v2/pokemon/');
-    const imageLink = imageUrl + pokemonId[1].substring(0, pokemonId[1].length - 1) + ".png";
+    const url = item.url;
+    const id = url.split('https://pokeapi.co/api/v2/pokemon/');
+    const image = 'https://pokeres.bastionbot.org/images/pokemon/' + id[1].substring(0, id[1].length - 1) + ".png";
 
     return (
       <View style={styles.item}>
         <Image
           style={styles.image}
           resizeMode="contain"
-          source={{ uri: imageLink }}
+          source={{ uri: image }}
         />
         <Text style={styles.text}>{item.name}</Text>
       </View>
@@ -38,6 +37,7 @@ export default function PokemonList({ pokemons, handleLoadMore, loading }) {
         data={pokemons}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
+        initialNumToRender={8}
         renderItem={renderRow}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
@@ -50,12 +50,17 @@ export default function PokemonList({ pokemons, handleLoadMore, loading }) {
 const styles = StyleSheet.create({
   container: {
     width: winWidth,
-    height: winHeight * 0.85,
+    height: winHeight * 0.9,
   },
   item: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
+    marginHorizontal: 15,
+    marginVertical: 15,
+    padding: 15,
+    elevation: 5,
   },
   image: {
     width: 100,
