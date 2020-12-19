@@ -1,49 +1,49 @@
 import React from 'react';
-import { StyleSheet, Dimensions, View, TouchableOpacity, FlatList, Image, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, Dimensions, View, ActivityIndicator, ScrollView } from 'react-native';
 
 const winWidth = Dimensions.get('window').width;
 const winHeight = Dimensions.get('window').height;
 
 import PokemonCard from './PokemonCard';
 
-export default function PokemonList({ pokemons, handleLoadMore, loading }) {
-
-  const renderRow = ({ item, index }) => {
+export default function PokemonList({ pokemonData, loading }) {
+  if (!loading) {
     return (
-      <PokemonCard
-        item={item}
-        index={index}
-      />
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.pokeContainer}>
+          <PokemonCard
+            pokemonData={pokemonData}
+          />
+        </ScrollView>
+      </View>
     );
-  };
-
-  const renderFooter = () => {
+  } else {
     return (
-      loading ? (
-        <ActivityIndicator color="white" />
-      ) : null
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={pokemons}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        initialNumToRender={8}
-        renderItem={renderRow}
-        onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.1}
-        ListFooterComponent={renderFooter}
-      />
-    </View>
-  );
+      <View style={styles.container}>
+        <ActivityIndicator
+          size="large"
+          color="#000000"
+        />
+      </View>
+    );  
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     width: winWidth,
     height: winHeight * 0.9,
-  }
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pokeContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'space-between',
+    justifyContent: 'center',
+    width: winWidth,
+  },
 })

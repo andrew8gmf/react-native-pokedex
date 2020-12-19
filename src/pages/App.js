@@ -1,36 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import PokemonList from '../components/PokemonList';
 
 export default function App() {
-  const [loading, setLoading] = useState(false);
-  const [offset, setOffset] = useState(0);
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemonData, setPokemonData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getData();
-  },[]);
-  
-  async function getData() {
-    await axios.get('https://pokeapi.co/api/v2/pokemon?limit=20&offset=' + offset).then(res => {
-      setPokemons(pokemons.concat(res.data.results));
-    });
-  }
+    getPokemon();
+  }, []);
 
-  function handleLoadMore() {
-    setLoading(true);
-    setOffset(offset + 20);
-    getData();
-  }
+  async function getPokemon() {
+    await axios
+      .get('https://pokeapi.co/api/v2/pokemon?limit=150')
+      .then(function (response) {
+        const { data } = response;
+        const { results } = data;
+        const newPokemonData = {};
+        results.forEach((pokemon, index) => {
+          newPokemonData[index + 1] = {
+            id: index + 1,
+            name: pokemon.name,
+            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+              index + 1
+            }.png`,
+          };
+        });
+        setPokemonData(newPokemonData);
+        setLoading(false);
+      });
+  };
 
   return (
     <>
-      <PokemonList 
-        pokemons={pokemons}
-        handleLoadMore={handleLoadMore}
+      <PokemonList
+        pokemonData={pokemonData}
         loading={loading}
       />
     </>
   );
-
 }
