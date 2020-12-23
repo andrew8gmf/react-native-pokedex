@@ -1,9 +1,12 @@
 import React, { useState }  from 'react';
-import { StyleSheet, View, Image, Text, Modal, TouchableOpacity } from 'react-native';
+import { StyleSheet, Dimensions, View, Image, Text, Modal, TouchableOpacity } from 'react-native';
+
+const winWidth = Dimensions.get('window').width;
+const winHeight = Dimensions.get('window').height;
 
 export default function PokemonCard({ pokemonData }) {
 
-  const createPokemonCard = (pokemonId) => {
+  function createPokemonCard(pokemonId) {
     const { id, name, sprite } = pokemonData[pokemonId];
     const correctName = name[0].toUpperCase() + name.slice(1);
     const [modalVisible, setModalVisible] = useState(false);
@@ -96,22 +99,18 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   modalView: {
-    margin: 20,
+    width: winWidth,
+    height: winHeight * 0.5,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     padding: 35,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     elevation: 5,
   },
   closeButton: {
