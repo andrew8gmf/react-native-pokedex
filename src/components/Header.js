@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Dimensions, View, TextInput, Text } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Dimensions, View, TextInput } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBars, faFilter, faStar as fasFaStar, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farFaStar } from '@fortawesome/free-regular-svg-icons';
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     header: {
         width: winWidth,
         height: winHeight * 0.1,
-        //position: 'absolute',
+        zIndex: 1,
+        position: 'absolute',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',

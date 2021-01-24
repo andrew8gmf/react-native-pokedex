@@ -11,6 +11,7 @@ export default function PokemonList({ pokemonData, loading }) {
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.pokeContainer}>
+          <View style={{ width: winWidth, height: winHeight * 0.1 }}/>
           <PokemonCard
             pokemonData={pokemonData}
           />
@@ -32,7 +33,7 @@ export default function PokemonList({ pokemonData, loading }) {
 const styles = StyleSheet.create({
   container: {
     width: winWidth,
-    height: winHeight * 0.9,
+    height: winHeight,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -45,5 +46,6 @@ const styles = StyleSheet.create({
     alignContent: 'space-between',
     justifyContent: 'center',
     width: winWidth,
+    paddingBottom: 50,
   },
 })

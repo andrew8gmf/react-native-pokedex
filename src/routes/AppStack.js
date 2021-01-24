@@ -5,7 +5,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const { Navigator, Screen } = createStackNavigator();
 
-import Header from '../components/Header';
 import App from '../pages/App';
 
 const Routes = () => {
@@ -13,7 +12,7 @@ const Routes = () => {
     <NavigationContainer>
       <Navigator
         screenOptions={{
-          header: () => <Header />,
+          headerShown: false,
         }}
       >
         <Screen

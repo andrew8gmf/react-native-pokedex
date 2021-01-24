@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import Header from '../components/Header';
 import PokemonList from '../components/PokemonList';
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
 
   return (
     <>
+      <Header/>
       <PokemonList
         pokemonData={pokemonData}
         loading={loading}

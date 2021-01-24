@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { StyleSheet, Dimensions, View, Image, Text, Modal, TouchableOpacity } from 'react-native';
+import { StyleSheet, Dimensions, View, Image, Text, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import PokemonDetails from './PokemonDetails';
 
