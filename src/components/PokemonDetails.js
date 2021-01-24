@@ -1,0 +1,85 @@
+import React, { useState, useEffect }  from 'react';
+import { StyleSheet, Dimensions, View, Image, Text, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
+
+import axios from 'axios';
+
+const winWidth = Dimensions.get('window').width;
+const winHeight = Dimensions.get('window').height;
+
+export default function PokemonDetails({ pokemonId, modalVisible, setModalVisible }) {
+  const [pokemon, setPokemon] = useState(undefined);
+
+  useEffect(() => {
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
+      .then(function (response) {
+        const { data } = response;
+        setPokemon(data);
+      })
+      .catch(function (error) {
+        setPokemon(false);
+      });
+  }, [pokemonId]);
+
+  function createPokemonDetails(pokemon) {
+    const { name, id, species, height, weight, types, sprites } = pokemon;
+
+    return (
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>{name}</Text>
+          <TouchableOpacity
+          style={styles.closeButton}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}
+          >
+            <Text style={styles.textStyle}>Hide Modal</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <>
+      {pokemon === undefined && <ActivityIndicator size="large" color="#000000"/>}
+      {pokemon !== undefined && pokemon && createPokemonDetails(pokemon)}
+      {pokemon === false && <Text> Pokemon not found</Text>}
+    </>
+  );
+}
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  modalView: {
+    width: winWidth,
+    height: winHeight * 0.5,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    padding: 35,
+    alignItems: 'center',
+    elevation: 5,
+  },
+  closeButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+})

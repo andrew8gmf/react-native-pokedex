@@ -1,6 +1,8 @@
 import React, { useState }  from 'react';
 import { StyleSheet, Dimensions, View, Image, Text, Modal, TouchableOpacity } from 'react-native';
 
+import PokemonDetails from './PokemonDetails';
+
 const winWidth = Dimensions.get('window').width;
 const winHeight = Dimensions.get('window').height;
 
@@ -18,20 +20,11 @@ export default function PokemonCard({ pokemonData }) {
           transparent={true}
           visible={modalVisible}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>{correctName}</Text>
-
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <PokemonDetails
+            pokemonId={pokemonId}
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+          />
         </Modal>
 
         <TouchableOpacity
