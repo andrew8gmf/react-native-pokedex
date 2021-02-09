@@ -8,6 +8,7 @@ const winWidth = Dimensions.get('window').width;
 const winHeight = Dimensions.get('window').height;
 
 import axios from 'axios';
+import Header from './Header';
 import Pokemon from './Pokemon';
 
 export default function Pokedex() {
@@ -82,22 +83,10 @@ export default function Pokedex() {
 
   return (
     <>
-      <SafeAreaView>
-        <StatusBar backgroundColor="black" />
-        <View style={styles.header}>
-          <View style={styles.headerBar}>
-            <View style={styles.searchBar}>
-              <FontAwesomeIcon icon={faBars} color='white' />
-              <TextInput style={styles.search} placeholder='Search' placeholderTextColor='white' value={filter} onChangeText={setFilter}></TextInput>
-            </View>
-            <View style={styles.icons}>
-              <FontAwesomeIcon icon={faFilter} color='white' />
-              <FontAwesomeIcon icon={fasFaStar} color='white' />
-              <FontAwesomeIcon icon={faEllipsisV} color='white' />
-            </View>
-          </View>
-        </View>
-      </SafeAreaView>
+      <Header
+        filter={filter}
+        setFilter={setFilter}
+      />
       {loading ? (
         <View style={styles.container}>
           <ActivityIndicator
@@ -122,47 +111,6 @@ export default function Pokedex() {
 }
 
 const styles = StyleSheet.create({
-  //HEADER
-  header: {
-    width: winWidth,
-    height: winHeight * 0.1,
-    zIndex: 1,
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerBar: {
-    width: '92%',
-    height: '50%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    backgroundColor: 'black',
-    borderRadius: 5,
-  },
-  searchBar: {
-    width: '65%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  search: {
-    width: '100%',
-    marginLeft: '8%',
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: 'white',
-    letterSpacing: 1,
-  },
-  icons: {
-    width: '20%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  
   //POKEMON LIST
   container: {
     width: winWidth,
