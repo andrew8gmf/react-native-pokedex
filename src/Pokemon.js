@@ -6,7 +6,7 @@ import axios from 'axios';
 const winWidth = Dimensions.get('window').width;
 const winHeight = Dimensions.get('window').height;
 
-export default function PokemonDetails({ pokemonId, modalVisible, setModalVisible }) {
+export default function Pokemon({ pokemonId, modalVisible, setModalVisible }) {
   const [pokemon, setPokemon] = useState(undefined);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function PokemonDetails({ pokemonId, modalVisible, setModalVisibl
       });
   }, [pokemonId]);
 
-  function createPokemonDetails(pokemon) {
+  function createPokemon(pokemon) {
     const { name, id, species, height, weight, types, sprites } = pokemon;
 
     return (
@@ -44,7 +44,7 @@ export default function PokemonDetails({ pokemonId, modalVisible, setModalVisibl
   return (
     <>
       {pokemon === undefined && <ActivityIndicator size="large" color="#000000"/>}
-      {pokemon !== undefined && pokemon && createPokemonDetails(pokemon)}
+      {pokemon !== undefined && pokemon && createPokemon(pokemon)}
       {pokemon === false && <Text> Pokemon not found</Text>}
     </>
   );
