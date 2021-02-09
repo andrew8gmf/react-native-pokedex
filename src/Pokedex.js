@@ -13,6 +13,7 @@ import Pokemon from './Pokemon';
 export default function Pokedex() {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
   async function getPokemon() {
@@ -87,7 +88,7 @@ export default function Pokedex() {
           <View style={styles.headerBar}>
             <View style={styles.searchBar}>
               <FontAwesomeIcon icon={faBars} color='white' />
-              <TextInput style={styles.search} placeholder='Search' placeholderTextColor='white'></TextInput>
+              <TextInput style={styles.search} placeholder='Search' placeholderTextColor='white' value={filter} onChangeText={setFilter}></TextInput>
             </View>
             <View style={styles.icons}>
               <FontAwesomeIcon icon={faFilter} color='white' />
@@ -110,6 +111,7 @@ export default function Pokedex() {
             <View style={{ width: winWidth, height: winHeight * 0.1 }}/>
             {Object.keys(pokemonData).map(
               (pokemonId) =>
+                pokemonData[pokemonId].name.includes(filter.toLowerCase()) &&
                 getPokemonCard(pokemonId)
             )}
           </ScrollView>
