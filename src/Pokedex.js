@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Dimensions, View, Text, TextInput, ScrollView, ActivityIndicator, TouchableOpacity, Image, Modal } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBars, faFilter, faStar as fasFaStar, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
-import { faStar as farFaStar } from '@fortawesome/free-regular-svg-icons';
+import { StyleSheet, Dimensions, View, Text, ScrollView, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
 
 const winWidth = Dimensions.get('window').width;
 const winHeight = Dimensions.get('window').height;
 
 import axios from 'axios';
 import Header from './Header';
-import Pokemon from './Pokemon';
 
-export default function Pokedex() {
+export default function Pokedex({ navigation }) {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
 
   async function getPokemon() {
     await axios
@@ -48,22 +43,12 @@ export default function Pokedex() {
 
     return (
       <View key={pokemonId}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-        >
-          <Pokemon
-            pokemonId={pokemonId}
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-          />
-        </Modal>
-
         <TouchableOpacity
           style={styles.pokemon}
           onPress={() => {
-            setModalVisible(true);
+            navigation.navigate('Pokemon', { 
+              pokemonId: pokemonId,
+            });
           }}
         >
           <View style={styles.imgContainer}>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect }  from 'react';
-import { StyleSheet, Dimensions, View, Image, Text, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Dimensions, View, Image, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import axios from 'axios';
 
 const winWidth = Dimensions.get('window').width;
 const winHeight = Dimensions.get('window').height;
 
-export default function Pokemon({ pokemonId, modalVisible, setModalVisible }) {
+export default function Pokemon({ route, navigation }) {
+  const { pokemonId } = route.params;
   const [pokemon, setPokemon] = useState(undefined);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function Pokemon({ pokemonId, modalVisible, setModalVisible }) {
           <TouchableOpacity
           style={styles.closeButton}
           onPress={() => {
-            setModalVisible(!modalVisible);
+            navigation.goBack();
           }}
           >
             <Text style={styles.textStyle}>Hide Modal</Text>
