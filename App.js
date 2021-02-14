@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -40,7 +40,10 @@ const Routes = () => {
         />
         <Screen
           name="Pokemon" 
-          component={Pokemon} 
+          component={Pokemon}
+          options={{
+            ...TransitionPresets.ModalSlideFromBottomIOS,
+          }}
         />
       </Navigator>
     </NavigationContainer>
