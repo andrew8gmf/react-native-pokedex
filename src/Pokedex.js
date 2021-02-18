@@ -23,7 +23,7 @@ export default function Pokedex({ navigation }) {
           newPokemonData[index + 1] = {
             id: index + 1,
             name: pokemon.name,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+            sprite: `https://pokeres.bastionbot.org/images/pokemon/${
               index + 1
             }.png`,
           };

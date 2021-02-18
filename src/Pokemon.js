@@ -24,16 +24,24 @@ export default function Pokemon({ route, navigation }) {
 
   function createPokemon(pokemon) {
     const { name, id, species, height, weight, types, sprites } = pokemon;
+    const sprite = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
 
     return (
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
+          <View style={styles.imgContainer}>
+            <Image
+              style={styles.pokemonImg}
+              resizeMode='contain'
+              source={{ uri: sprite }}
+            />
+          </View>
           <Text style={styles.modalText}>{name}</Text>
           <TouchableOpacity
-          style={styles.closeButton}
-          onPress={() => {
-            navigation.goBack();
-          }}
+            style={styles.closeButton}
+            onPress={() => {
+              navigation.goBack();
+            }}
           >
             <Text style={styles.textStyle}>Hide Modal</Text>
           </TouchableOpacity>
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: winWidth,
-    height: winHeight * 0.5,
+    height: winHeight * 0.7,
     backgroundColor: 'white',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -82,5 +90,17 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  imgContainer: {
+    width: '50%',
+    height: '50%',
+    textAlign: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    marginTop: '-25%',
+  },
+  pokemonImg: {
+    width: '100%',
+    height: '100%',
   },
 })
