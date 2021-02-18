@@ -7,6 +7,7 @@ const { Navigator, Screen } = createStackNavigator();
 
 import Pokedex from './src/Pokedex';
 import Pokemon from './src/Pokemon';
+import Filter from './src/Filter';
 
 const Routes = () => {
   return (
@@ -41,6 +42,13 @@ const Routes = () => {
         <Screen
           name="Pokemon" 
           component={Pokemon}
+          options={{
+            ...TransitionPresets.ModalSlideFromBottomIOS,
+          }}
+        />
+        <Screen
+          name="Filter" 
+          component={Filter}
           options={{
             ...TransitionPresets.ModalSlideFromBottomIOS,
           }}

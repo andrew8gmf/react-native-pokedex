@@ -10,7 +10,7 @@ import Header from './Header';
 export default function Pokedex({ navigation }) {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("");
+  const [filtered, setFiltered] = useState("");
 
   async function getPokemon() {
     await axios
@@ -69,8 +69,8 @@ export default function Pokedex({ navigation }) {
   return (
     <>
       <Header
-        filter={filter}
-        setFilter={setFilter}
+        filtered={filtered}
+        setFiltered={setFiltered}
       />
       {loading ? (
         <View style={styles.container}>
@@ -85,7 +85,7 @@ export default function Pokedex({ navigation }) {
             <View style={{ width: winWidth, height: winHeight * 0.1 }}/>
             {Object.keys(pokemonData).map(
               (pokemonId) =>
-                pokemonData[pokemonId].name.includes(filter.toLowerCase()) &&
+                pokemonData[pokemonId].name.includes(filtered.toLowerCase()) &&
                 getPokemonCard(pokemonId)
             )}
           </ScrollView>
