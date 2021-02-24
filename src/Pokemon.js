@@ -23,7 +23,8 @@ export default function Pokemon({ route, navigation }) {
   }, [pokemonId]);
 
   function createPokemon(pokemon) {
-    const { name, id, species, height, weight, types, sprites } = pokemon;
+    const { id, species, height, weight, types } = pokemon;
+    const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
     const sprite = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
 
     return (
@@ -36,7 +37,9 @@ export default function Pokemon({ route, navigation }) {
               source={{ uri: sprite }}
             />
           </View>
-          <Text style={styles.modalText}>{name}</Text>
+          <View style={styles.infoContainer}>
+            <Text style={styles.modalText}>{name}</Text>
+          </View>
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => {
@@ -68,14 +71,30 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: winWidth,
-    height: winHeight * 0.7,
+    height: winHeight * 0.70,
     backgroundColor: 'white',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     padding: 35,
     alignItems: 'center',
     elevation: 5,
   },
+  imgContainer: {
+    width: '50%',
+    height: '50%',
+    marginTop: '-40%',
+  },
+  pokemonImg: {
+    width: '100%',
+    height: '100%',
+  },
+  infoContainer: {
+    backgroundColor: 'yellow',
+    width: '100%',
+    padding: 20,
+    flexDirection: 'row',
+  },
+  
   closeButton: {
     backgroundColor: "#F194FF",
     borderRadius: 20,
@@ -90,17 +109,5 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-  },
-  imgContainer: {
-    width: '50%',
-    height: '50%',
-    textAlign: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    marginTop: '-25%',
-  },
-  pokemonImg: {
-    width: '100%',
-    height: '100%',
   },
 })
